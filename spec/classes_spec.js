@@ -26,6 +26,7 @@ describe("Create an object that takes a number between 1 and 100 in it's constru
 describe("Use the typeof operator from chapter 2 to change your constructor to choose a number randomly if one isn't supplied as an argument. Hint* math.ceil(math.random() * 100) returns a random number between 1 and 100.", function(){
     it("tests 27 being higher lower or equal to some random number", function(){
         let oOverUnder = new OverUnder();
+        // Note* This is the only test that can be done here because the computer's number is calculated randomly (see above)
         expect("higher, lower, just right").toContain(oOverUnder.handleInput(27));
     });
 });
