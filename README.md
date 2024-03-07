@@ -12,5 +12,5 @@ npm test
 
 The tests are in the spec folder, classes_spec.js and functions_spec.js. The units under test are functions.js, and classes.js.
 
-[Edit here](https://pr.new/rhildred/jasmineclasstests)
+[Edit here](https://diy-pwa.dev/~/gh/rhildred/jasmineclasstests)
 
