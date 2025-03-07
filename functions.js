@@ -1,41 +1,43 @@
 function hello(){
-    return "hello";
+  return "hello";
 }
 
-function squareFeetToAcres(squareFeet) {
-  return squareFeet / 43560;
+function calculateCoinTotal(nickels, dimes, quarters, loonies, toonies) {
+return (nickels * 0.05) + (dimes * 0.10) + (quarters * 0.25) + (loonies * 1.00) + (toonies * 2.00);
 }
 
-function mowTime(width, length, squareMetresPerMinute) {
-  const area = width * length;
-  return area / squareMetresPerMinute;
+function fahrenheitToCelsius(tempF) {
+return (tempF - 32) * 5/9;
 }
 
-function getAirQualityCategory(aqi) {
-  if (aqi >= 0 && aqi <= 50) return "Good";
-  if (aqi >= 51 && aqi <= 100) return "Moderate";
-  if (aqi >= 101 && aqi <= 150) return "Unhealthy for Sensitive Groups";
-  if (aqi >= 151 && aqi <= 200) return "Unhealthy";
-  if (aqi >= 201 && aqi < 300) return "Very Unhealthy";
-  if (aqi >= 300) return "Hazardous";
+function cubeVolume(height) {
+return Math.pow(height, 3);
 }
 
-function yee_ha(num) {
-  if (num % 3 === 0 && num % 7 === 0) {
-    return "Yee Ha";
-  }
-  if (num % 3 === 0) {
-    return "Yee";
-  }
-  if (num % 7 === 0) {
-    return "Ha";
-  }
-  return "Nada";
+function gymMembershipCost(cost, friends) {
+let discount = 0;
+if (friends === 1) {
+  discount = 0.05;
+} else if (friends === 2) {
+  discount = 0.10;
+} else if (friends >= 3) {
+  discount = 0.15;
+}
+return cost * (1 - discount);
 }
 
-// Function to calculate the slope of a line given two points (x1,y1) and (x2,y2)
-function slope(x1, y1, x2, y2) {
-  return (y2 - y1) / (x2 - x1);
+function earthquakeDamage(intensity) {
+if (intensity < 5) {
+  return "Very little or no damage at all";
+} else if (intensity < 5.5) {
+  return "There may be some damage";
+} else if (intensity < 6.5) {
+  return "There is serious damage: walls may crack, break or fall";
+} else if (intensity < 7.5) {
+  return "Disaster and buildings may collapse";
+} else {
+  return "Catastrophe and most buildings destroyed";
+}
 }
 
-export { hello, squareFeetToAcres, mowTime, getAirQualityCategory, yee_ha, slope };
+export { hello, calculateCoinTotal, fahrenheitToCelsius, cubeVolume, gymMembershipCost, earthquakeDamage };

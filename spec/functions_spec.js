@@ -1,76 +1,81 @@
-import { hello, squareFeetToAcres, mowTime, getAirQualityCategory, yee_ha, slope } from '../functions.js'
+import { hello, calculateCoinTotal, fahrenheitToCelsius, cubeVolume, gymMembershipCost, earthquakeDamage } from '../functions.js'
 
 describe("A suite of tests for functions.js", function() {
+
     it('tests for a function named hello that returns "hello"', function() {
-      let sHello = hello();
-      expect(sHello).toEqual("hello");
+        expect(hello()).toEqual("hello");
     });
 
-    it('converts 43560 square feet to 1 acre', function() {
-      expect(squareFeetToAcres(43560)).toEqual(1);
+    describe("Coin total calculation", function() {
+        it("should return 0 when all coins are 0", function() {
+            expect(calculateCoinTotal(0, 0, 0, 0, 0)).toEqual(0);
+        });
+        it("should correctly calculate the total for one of each coin", function() {
+            // 0.05 + 0.10 + 0.25 + 1.00 + 2.00 = 3.40
+            expect(calculateCoinTotal(1, 1, 1, 1, 1)).toEqual(3.4);
+        });
+        it("should correctly calculate the total for arbitrary counts", function() {
+            // (2 * 0.05) + (3 * 0.10) + (4 * 0.25) + (5 * 1.00) + (6 * 2.00) = 18.4
+            expect(calculateCoinTotal(2, 3, 4, 5, 6)).toEqual(18.4);
+        });
     });
 
-    it('converts 87120 square feet to 2 acres', function() {
-      expect(squareFeetToAcres(87120)).toEqual(2);
+    describe("Temperature conversion", function() {
+        it("converts freezing temperature (32°F) to 0°C", function() {
+            expect(fahrenheitToCelsius(32)).toEqual(0);
+        });
+        it("converts boiling temperature (212°F) to 100°C", function() {
+            expect(fahrenheitToCelsius(212)).toEqual(100);
+        });
+        it("converts room temperature (70°F) to approximately 21.11°C", function() {
+            expect(fahrenheitToCelsius(70)).toBeCloseTo(21.11, 2);
+        });
     });
 
-    it('converts 21780 square feet to 0.5 acre', function() {
-      expect(squareFeetToAcres(21780)).toEqual(0.5);
+    describe("Cube volume calculation", function() {
+        it("should return 0 when the height is 0", function() {
+            expect(cubeVolume(0)).toEqual(0);
+        });
+        it("should return 1 when the height is 1", function() {
+            expect(cubeVolume(1)).toEqual(1);
+        });
+        it("should return 8 when the height is 2", function() {
+            expect(cubeVolume(2)).toEqual(8);
+        });
     });
 
-    it('calculates mowing time for a 10m x 20m lawn at 5 m²/min (should take 40 minutes)', function() {
-      expect(mowTime(10, 20, 5)).toEqual(40);
-    });
-    it('calculates mowing time for a 5m x 10m lawn at 2 m²/min (should take 25 minutes)', function() {
-      expect(mowTime(5, 10, 2)).toEqual(25);
-    });
-    it('calculates mowing time for a 15m x 15m lawn at 3 m²/min (should take 75 minutes)', function() {
-      expect(mowTime(15, 15, 3)).toEqual(75);
-    });
-
-    it('returns "Good" for AQI 25', function() {
-      expect(getAirQualityCategory(25)).toEqual("Good");
-    });
-    it('returns "Moderate" for AQI 75', function() {
-      expect(getAirQualityCategory(75)).toEqual("Moderate");
-    });
-    it('returns "Unhealthy for Sensitive Groups" for AQI 125', function() {
-      expect(getAirQualityCategory(125)).toEqual("Unhealthy for Sensitive Groups");
-    });
-    it('returns "Unhealthy" for AQI 175', function() {
-      expect(getAirQualityCategory(175)).toEqual("Unhealthy");
-    });
-    it('returns "Very Unhealthy" for AQI 250', function() {
-      expect(getAirQualityCategory(250)).toEqual("Very Unhealthy");
-    });
-    it('returns "Hazardous" for AQI 350', function() {
-      expect(getAirQualityCategory(350)).toEqual("Hazardous");
+    describe("Gym membership cost calculation", function() {
+        const baseCost = 100;
+        it("should apply 5% discount for 1 friend", function() {
+            expect(gymMembershipCost(baseCost, 1)).toEqual(95);
+        });
+        it("should apply 10% discount for 2 friends", function() {
+            expect(gymMembershipCost(baseCost, 2)).toEqual(90);
+        });
+        it("should apply 15% discount for 3 friends", function() {
+            expect(gymMembershipCost(baseCost, 3)).toEqual(85);
+        });
+        it("should apply 15% discount for 4 friends", function() {
+            expect(gymMembershipCost(baseCost, 4)).toEqual(85);
+        });
     });
 
-    it('returns "Yee" when the number is divisible by 3 but not 7', function() {
-      expect(yee_ha(9)).toEqual("Yee");
-    });
-    it('returns "Ha" when the number is divisible by 7 but not 3', function() {
-      expect(yee_ha(14)).toEqual("Ha");
-    });
-    it('returns "Yee Ha" when the number is divisible by both 3 and 7', function() {
-      expect(yee_ha(21)).toEqual("Yee Ha");
-    });
-    it('returns "Nada" when the number is not divisible by 3 or 7', function() {
-      expect(yee_ha(10)).toEqual("Nada");
-    });
-
-    // Slope tests:
-    // Test 1: Simple positive slope: (1,1) to (2,2) -> slope = 1
-    it('calculates the slope of a line from (1,1) to (2,2) as 1', function() {
-      expect(slope(1, 1, 2, 2)).toEqual(1);
-    });
-    // Test 2: Another line: (2,3) to (4,7) -> slope = (7-3)/(4-2) = 2
-    it('calculates the slope of a line from (2,3) to (4,7) as 2', function() {
-      expect(slope(2, 3, 4, 7)).toEqual(2);
-    });
-    // Test 3: Vertical line: (1,1) to (1,4) -> run = 0, slope should be Infinity
-    it('calculates the slope of a vertical line from (1,1) to (1,4) as Infinity', function() {
-      expect(slope(1, 1, 1, 4)).toEqual(Infinity);
+    describe("Earthquake damage determination", function() {
+        it("should return 'Very little or no damage at all' for intensity less than 5", function() {
+            expect(earthquakeDamage(4.9)).toEqual("Very little or no damage at all");
+        });
+        it("should return 'There may be some damage' for intensity between 5 and 5.5", function() {
+            expect(earthquakeDamage(5)).toEqual("There may be some damage");
+        });
+        it("should return 'There is serious damage: walls may crack, break or fall' for intensity between 5.5 and 6.5", function() {
+            expect(earthquakeDamage(6)).toEqual("There is serious damage: walls may crack, break or fall");
+        });
+        it("should return 'Disaster and buildings may collapse' for intensity between 6.5 and 7.5", function() {
+            expect(earthquakeDamage(7)).toEqual("Disaster and buildings may collapse");
+        });
+        it("should return 'Catastrophe and most buildings destroyed' for intensity 7.5 and above", function() {
+            expect(earthquakeDamage(7.5)).toEqual("Catastrophe and most buildings destroyed");
+            expect(earthquakeDamage(8)).toEqual("Catastrophe and most buildings destroyed");
+        });
     });
 });
